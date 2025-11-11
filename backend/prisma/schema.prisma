@@ -1,0 +1,103 @@
+// Prisma Schema para VinylVault
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuário
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String
+  avatar        String?
+  qrCodeToken   String    @unique @default(uuid()) // Token único para QR Code
+  isPublic      Boolean   @default(true) // Coleção visível publicamente
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relacionamentos
+  vinyls        Vinyl[]
+  
+  @@map("users")
+}
+
+// Modelo de Disco (Vinyl)
+model Vinyl {
+  id              String    @id @default(uuid())
+  userId          String
+  
+  // Dados do disco
+  title           String
+  artist          String
+  year            Int?
+  coverImage      String?
+  barcode         String?
+  
+  // Metadados
+  categoryId      String
+  label           String?   // Gravadora
+  format          String?   // LP, EP, Single, etc
+  country         String?
+  
+  // Integração com APIs externas
+  discogsId       String?
+  musicbrainzId   String?
+  
+  // Dados extras
+  notes           String?   // Notas pessoais
+  condition       String?   // Estado do disco (mint, good, etc)
+  purchasePrice   Float?
+  purchaseDate    DateTime?
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relacionamentos
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category        Category  @relation(fields: [categoryId], references: [id])
+  tracks          Track[]
+  
+  @@index([userId])
+  @@index([categoryId])
+  @@index([barcode])
+  @@map("vinyls")
+}
+
+// Modelo de Categoria
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique  // MPB, Rock, Jazz, Blues, etc
+  slug        String    @unique
+  icon        String?   // Emoji ou URL de ícone
+  color       String?   // Cor para UI
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  
+  // Relacionamentos
+  vinyls      Vinyl[]
+  
+  @@map("categories")
+}
+
+// Modelo de Faixa (Track)
+model Track {
+  id          String    @id @default(uuid())
+  vinylId     String
+  position    String    // A1, B2, etc
+  title       String
+  duration    String?   // 3:45
+  
+  // Relacionamentos
+  vinyl       Vinyl     @relation(fields: [vinylId], references: [id], onDelete: Cascade)
+  
+  @@index([vinylId])
+  @@map("tracks")
+}
+
