@@ -73,6 +73,32 @@ const API_URL = 'https://SEU_APP.railway.app/api';
 
 ---
 
+## Passo 6: Configure o Build (Railway)
+
+Se você tiver problemas com Prisma, configure manualmente:
+
+1. Vá em **Settings** → **Deploy**
+2. Em **Build Command**, adicione:
+   ```
+   npm run build
+   ```
+3. Em **Start Command**, deixe:
+   ```
+   npm start
+   ```
+
+## ⚠️ Problemas Comuns
+
+### Erro: "libssl.so.1.1: No such file or directory"
+
+**Solução**: Já configuramos o `schema.prisma` com os binaries corretos. 
+
+Se ainda der erro:
+1. Commit e push das alterações
+2. No Railway, force um novo deploy
+
+---
+
 ## ✅ Pronto!
 
 Seu backend está no ar 24/7! 🎉
