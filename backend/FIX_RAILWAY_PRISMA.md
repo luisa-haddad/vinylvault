@@ -9,15 +9,18 @@ prisma:warn Prisma failed to detect the libssl/openssl version
 ## ✅ Solução Aplicada
 
 ### 1. Binary Targets Configurados
-O `prisma/schema.prisma` agora inclui:
+O `prisma/schema.prisma` agora inclui suporte para OpenSSL 1.1.x e 3.0.x:
 ```prisma
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
 }
 ```
 
-### 2. Scripts de Build Atualizados
+### 2. Dockerfile Criado
+Um `Dockerfile` foi criado com Alpine Linux + OpenSSL instalado, garantindo compatibilidade total.
+
+### 3. Scripts de Build Atualizados
 O `package.json` agora tem:
 ```json
 {

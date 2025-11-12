@@ -27,7 +27,8 @@ git push -u origin main
 3. Clique em **"New Project"**
 4. Escolha **"Deploy from GitHub repo"**
 5. Selecione o repositório **vinylvault**
-6. Railway vai iniciar o deploy automaticamente
+6. Railway vai detectar o **Dockerfile** e usar ele automaticamente
+7. Deploy vai iniciar automaticamente
 
 ## Passo 3: Configure as Variáveis
 
@@ -73,29 +74,21 @@ const API_URL = 'https://SEU_APP.railway.app/api';
 
 ---
 
-## Passo 6: Configure o Build (Railway)
-
-Se você tiver problemas com Prisma, configure manualmente:
-
-1. Vá em **Settings** → **Deploy**
-2. Em **Build Command**, adicione:
-   ```
-   npm run build
-   ```
-3. Em **Start Command**, deixe:
-   ```
-   npm start
-   ```
-
 ## ⚠️ Problemas Comuns
 
 ### Erro: "libssl.so.1.1: No such file or directory"
 
-**Solução**: Já configuramos o `schema.prisma` com os binaries corretos. 
+**Solução**: Já configuramos o `Dockerfile` que instala o OpenSSL automaticamente.
 
-Se ainda der erro:
-1. Commit e push das alterações
-2. No Railway, force um novo deploy
+O Railway vai usar o Dockerfile e tudo funcionará! ✅
+
+### Railway não detectou o Dockerfile?
+
+Se o Railway não usar o Dockerfile automaticamente:
+
+1. Vá em **Settings** → **Deploy**
+2. Certifique-se que **"Dockerfile Path"** está: `backend/Dockerfile`
+3. Force um novo deploy
 
 ---
 

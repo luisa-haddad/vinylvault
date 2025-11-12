@@ -1,0 +1,38 @@
+🔧 ALTERAÇÕES PARA CORRIGIR ERRO PRISMA NO RAILWAY
+
+Arquivos Criados/Modificados:
+===============================
+
+1. ✅ prisma/schema.prisma
+   - Adicionados binary targets para OpenSSL 1.1.x e 3.0.x
+   - Suporte para linux-musl (Alpine Linux usado pelo Railway)
+
+2. ✅ Dockerfile (NOVO)
+   - Baseado em Node 18 Alpine
+   - Instala OpenSSL automaticamente
+   - Otimizado para Prisma + Railway
+
+3. ✅ .dockerignore (NOVO)
+   - Otimiza build do Docker
+
+4. ✅ package.json
+   - Script "build" atualizado
+   - Roda migrations automaticamente
+
+O que causava o erro:
+=====================
+- Railway usa Alpine Linux com OpenSSL 1.1.x
+- Prisma não estava compilando binaries corretos
+- Faltava instalar OpenSSL no container
+
+Como foi resolvido:
+==================
+- Dockerfile customizado instala OpenSSL
+- Binary targets incluem todas versões necessárias
+- Railway vai detectar o Dockerfile automaticamente
+
+Próximo passo:
+=============
+COMMIT e PUSH para o GitHub!
+Railway vai fazer redeploy automático.
+

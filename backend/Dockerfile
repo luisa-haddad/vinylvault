@@ -1,7 +1,13 @@
-# Dockerfile para deploy do backend
-
+# Dockerfile otimizado para Railway + Prisma
 FROM node:18-alpine
 
+# Instalar OpenSSL e dependências necessárias
+RUN apk add --no-cache \
+    openssl \
+    openssl-dev \
+    libc6-compat
+
+# Criar diretório de trabalho
 WORKDIR /app
 
 # Copiar package files
@@ -20,10 +26,5 @@ COPY . .
 # Expor porta
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
-
-# Iniciar aplicação
+# Start command
 CMD ["npm", "start"]
-
