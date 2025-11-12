@@ -2,10 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Configure a URL base da API
-// Usando localtunnel para funcionar via Expo tunnel
-const API_URL = __DEV__ 
-  ? 'https://slimy-seas-matter.loca.lt/api' // Localtunnel
-  : 'https://sua-api-producao.com/api';
+const API_URL = 'https://vinylvault-production.up.railway.app/api';
 
 const api = axios.create({
   baseURL: API_URL,

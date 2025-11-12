@@ -39,11 +39,13 @@ Na página do projeto no Railway:
 
 ```
 NODE_ENV = production
-DATABASE_URL = postgresql://postgres:SUA_SENHA@db.gzinbdpkkkqxrplpirbs.supabase.co:5432/postgres
+DATABASE_URL = postgresql://postgres:SUA_SENHA@db.gzinbdpkkkqxrplpirbs.supabase.co:6543/postgres?pgbouncer=true
 JWT_SECRET = sua_chave_secreta_aqui
 DISCOGS_TOKEN = seu_token_discogs
 ALLOWED_ORIGINS = *
 ```
+
+**⚠️ ATENÇÃO**: Use a porta **6543** (Session Pooler) no Railway, não a 5432!
 
 3. Clique em **"Deploy"** para aplicar
 

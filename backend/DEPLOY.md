@@ -40,11 +40,13 @@ No Railway, vá em **"Variables"** e adicione:
 ```env
 NODE_ENV=production
 PORT=3000
-DATABASE_URL=postgresql://postgres:[SUA_SENHA]@db.gzinbdpkkkqxrplpirbs.supabase.co:5432/postgres
+DATABASE_URL=postgresql://postgres:[SUA_SENHA]@db.gzinbdpkkkqxrplpirbs.supabase.co:6543/postgres?pgbouncer=true
 JWT_SECRET=sua_chave_secreta_super_segura_aqui
 DISCOGS_TOKEN=seu_token_discogs_aqui
 ALLOWED_ORIGINS=*
 ```
+
+**⚠️ IMPORTANTE**: Use porta **6543** (Session Pooler) no Railway/cloud, não a 5432!
 
 #### 4. Configure o Build
 
@@ -159,9 +161,15 @@ vercel --prod
 "postinstall": "npx prisma generate"
 ```
 
-### Erro de conexão com banco
+### Erro de conexão com banco: "Can't reach database server"
 
-**Solução**: Verifique se a `DATABASE_URL` está correta e se o Supabase permite conexões externas
+**Solução**: Use a porta **6543** (Session Pooler) em vez da porta 5432:
+
+```
+postgresql://postgres:SENHA@db.gzinbdpkkkqxrplpirbs.supabase.co:6543/postgres?pgbouncer=true
+```
+
+A porta 5432 (direct connection) pode ter restrições de firewall. O Session Pooler (6543) é otimizado para conexões externas.
 
 ### Port já em uso
 

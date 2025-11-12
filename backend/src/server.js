@@ -19,9 +19,12 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 
 // CORS configurado
+const allowedOrigins = process.env.ALLOWED_ORIGINS || '*';
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+  origin: allowedOrigins === '*' ? '*' : allowedOrigins.split(','),
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(corsOptions));
 

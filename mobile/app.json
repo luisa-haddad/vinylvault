@@ -25,9 +25,10 @@
       },
       "package": "com.vinylvault.app",
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -46,7 +47,18 @@
           "photosPermission": "Permitir que $(PRODUCT_NAME) acesse suas fotos para adicionar capas de discos"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "071365c3-81ea-4203-93aa-30764e021425"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/071365c3-81ea-4203-93aa-30764e021425"
+    },
+    "owner": "luisa.haddad"
   }
 }
-

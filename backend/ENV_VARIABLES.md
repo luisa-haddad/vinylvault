@@ -11,9 +11,13 @@
 **Descrição**: Porta onde o servidor irá rodar
 
 ### `DATABASE_URL`
-**Valor**: `postgresql://postgres:[SUA_SENHA]@db.gzinbdpkkkqxrplpirbs.supabase.co:5432/postgres`  
+**Valor para Railway/Produção**: `postgresql://postgres:[SUA_SENHA]@db.gzinbdpkkkqxrplpirbs.supabase.co:6543/postgres?pgbouncer=true`  
+**Valor para Local**: `postgresql://postgres:[SUA_SENHA]@db.gzinbdpkkkqxrplpirbs.supabase.co:5432/postgres`  
 **Descrição**: URL de conexão com o PostgreSQL (Supabase)  
-**⚠️ IMPORTANTE**: Substitua `[SUA_SENHA]` pela senha real do Supabase
+**⚠️ IMPORTANTE**: 
+- Porta **6543** = Session Pooler (use no Railway/produção)
+- Porta **5432** = Direct Connection (use local)
+- Adicione `?pgbouncer=true` quando usar porta 6543
 
 ### `JWT_SECRET`
 **Valor**: Uma string aleatória e segura (ex: `minha_chave_super_secreta_12345678`)  
